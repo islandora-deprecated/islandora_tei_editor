@@ -1,0 +1,73 @@
+
+There are two directories in which teieditor code can be found.
+
+/var/www/drupal/sites/all/modules/teieditor: This directory contains 
+that drupal module.
+
+Files:
+
+    teieditor.module:
+    This file defines the permissions for the module as well as how to
+    render the page and deal with ajax posts. There are two ajax posts
+    the module deals with 'getTEI' which gets a TEI document  from
+    fedora specified by the pid in the post url and returns it to the
+    Javascript via a ajax post, and 'save' which receives the edited
+    document from the javascript and validates it before saving the
+    document back to fedora, it will not save the document if it doesn't
+    pass validation.
+
+    utils.php:
+    This php file is filled with helper functions that allow
+    teieditor.module to interact with fedora, perform riseachs, ect.
+    There are functions within this file that rely on  the islandora
+    module, if the islandora module was to change in some significant
+    way it could break the editor.
+
+    tei.js:
+    Defines a the tei schema within javascript, this file defines the
+    tei elements and attributes, and how they are supposed to work.
+    There is also some work here on the tei model classes but I had to
+    discard that work when I discovered the TEI documents in fedora were
+    not valid by the model class standards, so there is a bit of a hack
+    to keep users from inserting <forename> anywhere except within a
+    <persName> tag.
+
+    teieditor.js:
+    Renders and controls the functionality of the editor, such as what
+    the buttons do, it depends of the definitions within tei.js to
+    function correctly. The nice thing about the seperation of the
+    schema and editor is that you can add new tei elements or attributes
+    to tei.js, and the editor will work perfectly well with the new
+    tags, and elements.
+
+    teieditor.css:
+    Style for the editor.
+
+    tei.css:
+    Style for the tei elements, just the color backgrounds behind the
+    tags really.
+
+    teilite.rng:
+    Used to validate the TEI document before saving.
+
+    teieditor.info:
+    Exposes the module to drupal, defines the name of the module who
+    owns it excetera.
+
+    Jquery folder: jquery 3.2 is kept in here, I don't use drupals
+    version of jquery as its 3.0 or 3.1 and doesn't support some of the
+    features the editor uses.
+
+/usr/local/fedora/tomcat/webapps/teieditor: This directory contains the 
+iframe needed to render the djatoka viewer, also included in this is a 
+separate instance openlayers 2.7 and Jquery 3.2.
+
+Files:
+
+    teieditor_iframe.html:
+    The html file that gets loaded into the editors iframe, this is
+    where the page image gets rendered.
+
+    jQuery 3.2:  folder contains  jQuery.
+
+    Open Layers 2.7: folder contains open layers.

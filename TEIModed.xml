@@ -1,0 +1,97 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader type="AACR2">
+    <fileDesc>
+      <titleStmt>
+        <title type="main">
+Augustine Cove, Prince Edward Island, Canada, 1800-1973 /
+</title>
+        <author>
+      Augustine Cove Women&apos;s Institute.
+    </author>
+        <respStmt>
+          <orgName>Robertson Library, University of Prince Edward Island</orgName>
+          <resp>OCR scanning</resp>
+          <resp>TEI encoding</resp>
+        </respStmt>
+      </titleStmt>
+      <extent></extent>
+      <publicationStmt>
+        <publisher>IslandLives, Robertson Library, University of PEI</publisher>
+        <date>2009</date>
+        <idno>195201</idno>
+        <availability>
+          <p>
+                            Use of this resource is governed by the Canadian
+                            Copyright Act. Unless otherwise noted you must contact the rights holder(s) for permission
+                            to publish or reproduce this resource.
+                        </p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <biblFull>
+          <titleStmt>
+            <title type="main">
+Augustine Cove, Prince Edward Island, Canada, 1800-1973 /
+</title>
+            <author>
+      Augustine Cove Women&apos;s Institute.
+    </author>
+          </titleStmt>
+          <editionStmt>
+            <p></p>
+          </editionStmt>
+          <extent>
+91 p.</extent>
+          <publicationStmt>
+            <publisher>s.n.,</publisher>
+            <pubPlace>S.l. :</pubPlace>
+            <date>1973.</date>
+          </publicationStmt>
+        </biblFull>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>
+                        This text was created as part of the IslandLives Project. Project description and
+                        participants are available at the project website at
+                        http://www.islandlives.ca.
+                        
+</p>
+      </projectDesc>
+      <editorialDecl>
+        <p>
+                        This electronic text file was created by the Robertson Library, University of Prince 
+                        Edward Island.
+                        Typographical distinct text has not been identified.
+                        Digital page images are linked to the text file. 
+                        Dates, personal, place and organizational names have been encoded.
+                        
+</p>
+      </editorialDecl>
+      <classDecl>
+        <taxonomy>
+          <bibl>Library of Congress Subject Headings</bibl>
+        </taxonomy>
+      </classDecl>
+    </encodingDesc>
+    <profileDesc>
+      <textClass>
+        <keywords scheme="LCSH">
+          <term>
+      Augustine Cove (P.E.I.)
+      History.
+    </term>
+        </keywords>
+      </textClass>
+    </profileDesc>
+    <revisionDesc>
+      <change></change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div n="6" type="page">  <pb n="6"></pb>  <div n="d1e273" rend="16,0,852,102">  <p n="d1e279"> Property of U.P.E.L</p>  </div>  <div>  <figure n="d1e287" rend="248,470,794,1128">  <graphic n="d1e289" rend="248,470,794,1128"></graphic>  </figure>  </div>  <div>  <figure n="d1e292" rend="884,432,1436,1118">  <graphic n="d1e294" rend="884,432,1436,1118"></graphic>  </figure>  </div>  <div n="d1e297" rend="532,1134,1154,1178">  <p n="d1e303"> LORD AND <persName>  <surname>LADY</surname>  </persName>  <persName>  <surname>TWEEDSMUIR</surname>  </persName>  </p>  </div>  <div n="d1e311" rend="708,1240,966,1284">  <p n="d1e317"> FORWORD</p>  </div>  <div n="d1e326" rend="256,1328,1536,2204">  <p n="d1e332"> I am so glad to hear that the <persName>  <surname>Women</surname>  </persName>'s <orgName>Institutes of Canada</orgName> are compiling village history books. Events move very fast nowadays; houses are pulled down, new roads are made, and the aspect of the countryside changes complete¬ ly in a short time.</p>  <p n="d1e354"> It is a most useful and satisfying task for <persName>  <surname>Women</surname>  </persName>'s In¬ stitute members to see that nothing valuable is lost or for¬ gotten* and women should be on the alert always to guard the traditions of their homes, and to see that water colour sketches and prints, poems and prose legends should find their way into these books. The oldest people in the<placeName> village</placeName> will tell us fascinating stories of what they remember, which the younger members can write down, thus making a bridge between them and events which happened before they were born. After all, it is the history of humanity which is continually interesting to us, and your village his¬ tories will be the basis of accurate facts much valued by historians of the future. I am proud to think that you have called them "The Histories."</p>  </div>  <div n="d1e416" rend="894,2242,1304,2288">  <p n="d1e422">  <persName>  <forename>Susan</forename>  <surname>Tweedsmuir</surname>  </persName>.</p>  </div>  </div>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,88 @@
+8
+
+dir
+629
+http://137.149.66.238/repos/fedoradrupalmodule/teieditor/jquery/development-bundle/demos/dialog
+http://137.149.66.238/repos/fedoradrupalmodule
+
+
+
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+
+svn:special svn:externals svn:needs-lock
+
+modal.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+64c22ffd26f0cb0a10b88490622f5f74
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+modal-form.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+c03f72cbb069724dd297c1e431d2ce78
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+modal-message.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+2ba5922a0d0190164677955117a8958a
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+modal-confirmation.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+5045d3c7f2ffbea7d42acfba2c03c193
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+default.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+f1da9aeb2ab785f6a1e81059cea1101e
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+index.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+1c75a28c06d1a074743bb31e25b1561d
+2009-11-24T13:01:01.885471Z
+629
+ppound
+

@@ -1,0 +1,7 @@
+/*Defines the name and some Drupal specific information about the module.*/
+
+; $Id$
+name = TEI Editor
+description = Allows users to edit TEI encoded document within Fedora
+core = 6.x
+package = Robertson Library

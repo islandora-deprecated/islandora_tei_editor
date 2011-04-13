@@ -1,0 +1,82 @@
+8
+
+dir
+629
+http://137.149.66.238/repos/fedoradrupalmodule/teieditor/jquery/development-bundle/external/bgiframe
+http://137.149.66.238/repos/fedoradrupalmodule
+
+
+
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+
+svn:special svn:externals svn:needs-lock
+
+test
+dir
+
+jquery.bgiframe.pack.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+7b5a84bfea31fd19a8c984350308be0e
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+ChangeLog.txt
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+81b41abc2e23c6b737fdd68bece12ddc
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+jquery.bgiframe.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+880b8c9d0e5cc997aa804fb9873cae83
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+jquery.bgiframe.min.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+a868cdfcb65ff0bb01f30b5a4f56d080
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+docs
+dir
+
+META.json
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+a09a5e7e0a0a25759b7d6e73454ea716
+2009-11-24T13:01:01.885471Z
+629
+ppound
+

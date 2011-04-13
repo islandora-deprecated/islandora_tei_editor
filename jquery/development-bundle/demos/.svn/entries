@@ -1,0 +1,103 @@
+8
+
+dir
+629
+http://137.149.66.238/repos/fedoradrupalmodule/teieditor/jquery/development-bundle/demos
+http://137.149.66.238/repos/fedoradrupalmodule
+
+
+
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+
+svn:special svn:externals svn:needs-lock
+
+show
+dir
+
+resizable
+dir
+
+toggle
+dir
+
+slider
+dir
+
+removeClass
+dir
+
+switchClass
+dir
+
+tabs
+dir
+
+progressbar
+dir
+
+effect
+dir
+
+demos.css
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+99d2be8f472e389adf663e18eaf800fe
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+dialog
+dir
+
+accordion
+dir
+
+selectable
+dir
+
+images
+dir
+
+toggleClass
+dir
+
+draggable
+dir
+
+droppable
+dir
+
+hide
+dir
+
+index.html
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+b53e0ba7c7b223611abb73803fdabeb2
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+datepicker
+dir
+
+sortable
+dir
+
+addClass
+dir
+
+animate
+dir
+

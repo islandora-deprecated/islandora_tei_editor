@@ -1,0 +1,108 @@
+/*
+ * TEI highlights
+ */
+DATE, BIRTH, DEATH, AGE, EVENT
+{
+    position:relative;
+    background-color:#ecd4cd;
+    text-decoration:none;
+    z-index:24;
+}
+
+DATE tooltip, BIRTH tooltip, DEATH tooltip, AGE tooltip, EVENT tooltip 
+{ 
+    display:none; 
+}
+
+DATE:hover, BIRTH:hover, DEATH:hover, AGE:hover, EVENT:hover
+{
+    z-index:25; 
+    background-color:#ccc;
+}
+
+DATE:hover tooltip, BIRTH:hover tooltip, DEATH:hover tooltip, AGE:hover tooltip, EVENT:hover tooltip
+{
+    display:block;
+    position:absolute;
+    top:2em; left:0;
+    border:1px solid #0cf;
+    background-color:#cff; color:#000;
+    text-align: center;
+}
+
+PERSNAME
+{
+    position:relative;
+    background-color:#d5e5f1;   
+    text-decoration:none;
+    z-index:24;
+}
+
+PERSNAME,  FORENAME, SURNAME, ADDNAME, GENNAME, ROLENAME, ORGNAME
+{
+    position:relative;
+    background-color:#d5e5f1;   
+    text-decoration:none;
+    z-index:24;
+}
+
+PERSNAME tooltip, FORENAME tooltip, SURNAME tooltip, ADDNAME tooltip, GENNAME tooltip, ROLENAME tooltip, ORGNAME tooltip 
+{ 
+    display:none; 
+}
+
+PERSNAME:hover
+{
+    z-index:25; 
+} 
+
+FORENAME:hover, SURNAME:hover, ADDNAME:hover, GENNAME:hover, ROLENAME:hover, ORGNAME:hover 
+{ 
+    z-index:25; 
+    background-color:#ccc; 
+}
+
+FORENAME:hover tooltip, SURNAME:hover tooltip, ADDNAME:hover tooltip, GENNAME:hover tooltip, ROLENAME:hover tooltip, ORGNAME:hover tooltip
+{
+    display:block;
+    position:absolute;
+    top:2em; left:0;
+    border:1px solid #0cf;
+    background-color:#cff; color:#000;
+    text-align: center;
+}
+
+/*PLACENAME,*/ 
+GEO, COUNTRY, REGION, SETTLEMENT, DISTRICT, GEOGNAME
+{
+    position:relative;
+    background-color:#cceecc;
+    text-decoration:none;
+    z-index:24;
+}
+
+PLACENAME tooltip, GEO tooltip, COUNTRY tooltip, REGION tooltip, SETTLEMENT tooltip, DISTRICT tooltip, GEOGNAME tooltip 
+{ 
+    display:none; 
+}
+
+PLACENAME:hover
+{
+    z-index:25; 
+}
+ 
+GEO:hover, COUNTRY:hover, REGION:hover, SETTLEMENT:hover, DISTRICT:hover, GEOGNAME:hover
+{ 
+    z-index:25; 
+    background-color:#ccc; 
+}
+
+GEO:hover tooltip, COUNTRY:hover tooltip, REGION:hover tooltip, SETTLEMENT:hover tooltip, DISTRICT:hover tooltip, GEOGNAME:hover tooltip
+{
+    display:block;
+    position:absolute;
+    top:2em; left:0;
+    border:1px solid #0cf;
+    background-color:#cff; color:#000;
+    text-align: center;
+}

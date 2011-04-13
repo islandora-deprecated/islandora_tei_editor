@@ -1,0 +1,28 @@
+8
+
+dir
+629
+http://137.149.66.238/repos/fedoradrupalmodule/teieditor/jquery/development-bundle/external/simulate
+http://137.149.66.238/repos/fedoradrupalmodule
+
+
+
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+
+svn:special svn:externals svn:needs-lock
+
+jquery.simulate.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+429a8f6c1e02f4e4f583394906c587ac
+2009-11-24T13:01:01.885471Z
+629
+ppound
+

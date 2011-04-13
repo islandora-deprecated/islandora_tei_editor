@@ -1,0 +1,215 @@
+/* copied bits from iiv viewer */
+
+#teieditor-module
+{ 
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  text-align: center; /* ie6 */
+}
+
+#toolbar
+{ 
+  height:38px;
+  padding: 4px;
+  margin: auto;
+}
+
+#toolbar .controlset button {
+   float: left;
+   outline: 0;
+   margin-right: 4px;
+   height: 32px;
+   width: 32px;
+   text-decoration: none !important; 
+   cursor: pointer; 
+   zoom: 1; 
+   vertical-align: middle;
+}
+
+#toolbar select, #toolbar select option { 
+   overflow: hidden;                  
+}
+
+#viewer {
+  border-top: 1px solid #ccc;
+}
+
+#viewer #map
+{
+  float: left;
+  width: 50%;  
+}
+
+/* TEI Editor */
+#tei-editor 
+{
+  display: block;
+  width: 50%;
+  float: right;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* TEI Editor Toolbar */
+#tei-editor #tei-toolbar
+{ 
+  display: block;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;  
+  overflow:hidden;
+}
+
+#tei-toolbar .ui-widget
+{ 
+  display:none;
+  position: absolute;
+}
+
+#tei-toolbar button, #toolbar button {
+   outline: 0;
+   margin-right: 4px;
+   height: 32px;
+   width: 32px;
+   text-decoration: none !important; 
+   cursor: pointer; 
+   zoom: 1; 
+   vertical-align: middle;
+}
+/* Button is Enabled*/
+#tei-toolbar button
+{ 
+  border: 1px solid #d3d3d3; 
+  background: #e6e6e6 url(jquery/css/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; 
+  font-weight: normal; 
+  color: #555555; 
+  outline: none;
+}
+/* Button is Disabled*/
+#tei-toolbar button[disabled="disabled"]
+{ 
+  cursor: default !important;
+  opacity: .35; 
+  filter:Alpha(Opacity=35); 
+  background-image: none;
+  cursor: text;
+}
+
+#toolbar select{
+   margin-right: 4px;
+   text-decoration: none !important; 
+   cursor: pointer; 
+   zoom: 1; 
+   vertical-align: middle;                 
+}
+
+#tei-toolbar-menu
+{ 
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 130px;
+  display: block;
+  text-align: left;
+  z-index: 30;
+}
+
+/* TEI Editor Content */
+#tei-editor #tei-content
+{ 
+  display: block;
+  background-color: #FFFFFF;
+  overflow:scroll;
+}
+
+/* TEI Editor Tool Tip */
+#tei-tool-tip
+{ 
+  position: fixed;
+  display: block;
+  text-align: left;
+  z-index: 30;
+}
+
+#tei-tool-tip dl
+{ 
+   margin: 0px 8px 8px 8px;
+}
+
+#tei-tool-tip .ui-widget-header
+{
+  text-align: center;
+}
+
+/* TEI Editor Context Menu */
+#tei-context-menu
+{ 
+  position: fixed;
+  display: block;
+  left: 0px;
+  top: 0px;
+  width: 130px;
+  display: block;
+  text-align: left;
+  z-index: 30;
+}
+
+#tei-context-menu .ui-widget-header
+{ 
+
+}
+
+#tei-context-menu .ui-selectee
+{ 
+  height: 30px;
+  vertical-align: middle;
+}
+
+#tei-context-menu .ui-selectee .span
+{ 
+  vertical-align: middle;
+}
+
+.tei-context-sub-menu
+{ 
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 130px;
+  display: block;
+  text-align: left;
+  text-transform: lowercase;
+  margin: -1 0 0 1;
+}
+
+/* TEI Editor Modal Attribute Form  */
+.ui-accordion-content
+{ 
+  text-align: left;  
+}
+
+.ui-accordion-content span.tei-att
+{ 
+  padding: 5px 5px 0px 0px;  
+  float: left;
+  font-size: 1em;
+}
+
+.ui-accordion-header
+{  
+  text-align: center;
+}
+
+/* TEI Editor jQuery ui Selections */
+#feedback { font-size: 1.4em; }
+.ui-selecting { background: #FECA40; }
+.ui-selected { background: #F39814; color: black; }
+
+/* Fix for drupal's ugly default themeing */
+ul.ui-accordion, ul.ui-accordion li{
+  margin: 0;
+  padding: 0;
+  background: transparent none repeat scroll 0 0;
+}

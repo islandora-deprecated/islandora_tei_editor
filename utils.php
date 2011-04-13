@@ -1,0 +1,311 @@
+<?php
+  /*
+   * @file utils.php
+   * Contains utility functions and global constants.
+   */
+
+/*
+ * Global Constants
+ */
+
+
+/*
+ * Function: 
+ *  ___autoload
+ *
+ * Params: 
+ *  p_sClassName - Name of Class to load.
+ *
+ * Description:
+ *  Loads the appropriate file for a given class
+ *  define and utility functions such as __autoload().   
+ */
+//function __autoload($p_sClassName)
+//{
+  // Maybe not needed.
+//  require_once(strtolower($p_sClassName).".inc".".php");
+//}
+
+/*
+ * Function: 
+ *  riSearch
+ *
+ * Params: 
+ *  p_sQuery - Search query for fedora in risearch format.
+ *
+ * Returns:
+ *  An xml file that contains the results of the search.
+ */
+function riSearch($p_sQuery)
+{
+  // Prepare Query
+  $p_sQuery = htmlentities(urlencode($p_sQuery));
+  $url = variable_get('fedora_repository_url', 'http://localhost:8080/fedora/risearch');
+  $url .= '?type=tuples&flush=true&format=Sparql&limit=13000&lang=itql&stream=on&query=' . $p_sQuery;
+  // Perform Query
+  $xml = new DOMDocument('1.0', 'UTF-8');
+  $xml->loadXML(DoCurl($url, TRUE));
+  return $xml;
+}
+
+/*
+ * Function: 
+ *  isValidPagePid
+ *
+ * Params: 
+ *  p_sPid - Page Object pid to be verified.
+ *
+ * Returns:
+ *  True if p_sPid exists and
+ *  is a page, false otherwise.
+ */
+function isValidPagePid($p_sPid)
+{
+  $sQuery = 'select $object from <#ri>
+    where $object <fedora-model:hasModel> <info:fedora/ilives:pageCModel>';
+  $xml = riSearch($sQuery);
+  $list = $xml->getElementsByTagName('object');
+  for($i = 0; $i < $list->length; $i++)
+    {
+      if( substr($list->item($i)->attributes->getNamedItem('uri')->value, strlen('info:fedora/'))==$p_sPid)
+	return TRUE;
+    }
+  return FALSE;
+}
+
+/*
+ * Function: 
+ *  isValidBookPid
+ *
+ * Params: 
+ *  p_sPid - Book Object pid to be verified.
+ *
+ * Returns:
+ *  True if p_sPid exists and
+ *  is a book, false otherwise.
+ */
+function isValidBookPid($p_sPid)
+{
+  $sQuery = 'select $object from <#ri>
+    where $object <fedora-model:hasModel> <info:fedora/ilives:bookCModel>';
+  $xml = riSearch($sQuery);
+  $list = $xml->getElementsByTagName('object');
+  for($i = 0; $i < $list->length; $i++)
+    {
+      if( substr($list->item($i)->attributes->getNamedItem('uri')->value, strlen('info:fedora/'))==$p_sPid)
+	return TRUE;
+    }
+  return FALSE;
+}
+
+/*
+ * Function: 
+ *  isValidPid
+ *
+ * Params: 
+ *  p_sPid - Object pid to be verified.
+ *
+ * Returns:
+ *  True if p_sPid exists and
+ *  is either a book or page, false otherwise.
+ */
+function isValidPid($p_sPid)
+{
+  if( isValidBookPid($p_sPid) || isValidPagePid($p_sPid))
+    return TRUE;
+  else
+    return FALSE;
+}
+
+/*
+ * Function: 
+ *
+ * Params: 
+ *
+ * Description:
+ *  
+ */
+function GetBookPidFromPagePid($p_sPagePid)
+{
+  $query_string = 'select $object $parent  from <#ri>
+		where $object <fedora-rels-ext:isMemberOf> $parent
+		and $object <dc:identifier> \''.$p_sPagePid.'\'
+		order by $object';
+
+  $query_string = htmlentities(urlencode($query_string));
+  $url = variable_get('fedora_repository_url', 'http://localhost:8080/fedora/risearch');
+  $url .= '?type=tuples&flush=true&format=Sparql&limit=13000&lang=itql&stream=on&query=' . $query_string;
+  $sSearchResults = DoCurl($url, TRUE);
+  $xml = new DOMDocument('1.0', 'UTF-8');
+  $xml->loadXML($sSearchResults);
+  $list = $xml->getElementsByTagName('parent');
+
+  // Always grab the first, if more than one, well thats just not right.
+  return substr($list->item(0)->attributes->getNamedItem('uri')->value, strlen('info:fedora/'));
+}
+
+/*
+ * Function: 
+ *  getBookPid
+ *
+ * Params: 
+ *  p_sPid - Object pid to be converted to a Book pid.
+ *
+ * Returns:
+ *  p_sPid if p_sPid is a book pid otherwise
+ *  it returns the book pid that p_sPid belongs to.
+ *
+ * Notes:
+ *  If p_sPid is not a valid book or page pid the result is undefined.
+ */
+function getBookPid($p_sPid)
+{
+  if(isValidBookPid($p_sPid)) 
+    return $p_sPid;
+  elseif(isValidPagePid($p_sPid))
+    return GetBookPidFromPagePid($p_sPid);
+}
+
+/*
+ * Function: 
+ *  getPidList
+ *
+ * Params: 
+ *  p_sPid - Object pid either a book or page pid.
+ *
+ * Returns:
+ *  A array of objects containing the page pids and titles
+ *  that are associated with the book p_sPid is or is a member of.
+ */
+function getPidList($p_sPid)
+{
+  $sBookPid = getBookPid($p_sPid);
+  $aPageList = array();
+  $sQuery = 'select $object $title from <#ri>
+		where $object <dc:title> $title
+		and ($object <fedora-rels-ext:isMemberOf> <info:fedora/'.$sBookPid.'>
+		or $object <fedora-rels-ext:isMemberOfCollection> <info:fedora/'.$sBookPid.'>)
+		order by $object';
+  $xml = riSearch($sQuery);
+  $aPids = $xml->getElementsByTagName('object');
+  $aTitles = $xml->getElementsByTagName('title');
+  for($i = 0; $i < $aPids->length && $i < $aTitles->length; $i++)
+    {
+      // One-based Array
+      $aPageList[$i+1] = array('pid'=>substr($aPids->item($i)->attributes->getNamedItem('uri')->value, strlen('info:fedora/')),	
+			       'title'=>$aTitles->item($i)->nodeValue,
+			       );
+    }
+  return $aPageList;
+}
+
+/*
+ * Function: GetFedoraObjectDatastreamURL
+ * Params: 
+ */
+function GetFedoraObjectDatastreamURL($p_sObjectPid, $p_sObjectLabel)
+{
+  if(user_access('view fedora collection'))
+    {
+      module_load_include('inc', 'Fedora_Repository', 'api/fedora_item');
+      $object = new Fedora_Item($p_sObjectPid);
+      $datastreams = $object->get_datastreams_list_as_array();      
+      if($datastreams[$p_sObjectLabel])
+	{
+	  $sDataStreamURL = variable_get('fedora_base_url', '') . '/get/' . $p_sObjectPid . '/' . $p_sObjectLabel;
+	  return $sDataStreamURL;
+	}
+      else
+	{
+	  form_set_error('teieditor', t('Could Not find datastream '.$p_sObjectLabel.' in object '.$p_sObjectPid));
+	}
+    }
+  else
+    form_set_error('teieditor', t('You do not have permission.')); // Elaborate on string error msg's
+}
+
+/*
+ * Function: GetFedoraObjectDatastreamURL
+ * Params: 
+ */
+function DoCurl($p_sURL, $p_bFedoraAuthenticate)
+{
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $p_sURL);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+  curl_setopt($ch, CURLOPT_FAILONERROR, 1); // Fail on errors
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
+  curl_setopt($ch, CURLOPT_TIMEOUT, 15); // times out after 15s
+  $user_agent = "Mozilla/4.0 pp(compatible; MSIE 5.01; Windows NT 5.0)";
+  curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+  // Do we need to authenticate for fedora?
+  if($p_bFedoraAuthenticate)
+    {
+      global $user;
+      if ((!isset ($user)) || $user->uid == 0) 
+	{
+	  $fedoraUser = 'fedora_anonymous';
+	  $fedoraPass = 'anonymous';
+	} else {
+	$fedoraUser = $user->name;
+	$fedoraPass = $user->pass;//pass;
+      }
+      curl_setopt($ch, CURLOPT_USERPWD, "$fedoraUser:$fedoraPass");
+    }  
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  $sDataStream = curl_exec($ch);
+  curl_close($ch);
+  return $sDataStream;
+}
+
+/*
+ * Function: GetFedoraObjectDatastreamURL
+ * Params: 
+ */
+function GetFedoraObjectDatastream($p_sObjectPid, $p_sObjectID)
+{
+  $sDataStreamURL = GetFedoraObjectDatastreamURL($p_sObjectPid, $p_sObjectID);
+  if(isset($sDataStreamURL))
+    {
+      return DoCurl($sDataStreamURL, TRUE);
+    }
+}
+
+
+# THIS STUFF MAY NOT GET USED
+/*
+function SubmitForm($p_iFormID, &$p_aFormState)
+{
+  Window::GetWindow()->SubmitForm($p_iFormID, $p_aFormState);
+}
+
+function ValidateForm($p_iFormID, &$p_aFormState)
+{
+  Window::GetWindow()->ValidateForm($p_iFormID, $p_aFormState);
+  }*/
+
+/*
+ * Function: 
+ *  ConvertHTMLtoXML
+ *
+ * Params: 
+ *  p_sHTML - HTML encoded string.
+ *
+ * Description:
+ *  Converts an HTML encoded string to an XML encoded string.
+ */
+function ConvertHTMLtoXML($p_sHTML)
+{
+  // HTML has character entities that are not recognized by XML, so convert the
+  // entities into UTF-8.
+  $encode = get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES);
+  foreach($encode as $key => $value)
+    {
+      if($value != '&lt;' && $value != '&gt;' && $value != '&amp;' )// Don't convert these strings.
+	{
+	  $decode[$value] = utf8_encode($key);
+	}
+    }
+  return strtr($p_sHTML, $decode);
+}

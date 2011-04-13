@@ -1,0 +1,65 @@
+8
+
+dir
+629
+http://137.149.66.238/repos/fedoradrupalmodule/teieditor/jquery/development-bundle/external/cookie
+http://137.149.66.238/repos/fedoradrupalmodule
+
+
+
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+
+svn:special svn:externals svn:needs-lock
+
+jquery.cookie.pack.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+42c5ed845adbc082ad0f83c54b12636e
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+jquery.cookie.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+621cb6fcf57c3e29f9f06b8b00b0c030
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+jquery.cookie.min.js
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+8e34b522f557a3fb2053e6073f9d990f
+2009-11-24T13:01:01.885471Z
+629
+ppound
+
+jquery.cookie.zip
+file
+
+
+
+
+2009-09-14T21:53:33.000000Z
+0e090a381fbb86bd1fc544f5eafeae76
+2009-11-24T13:01:01.885471Z
+629
+ppound
+has-props
+

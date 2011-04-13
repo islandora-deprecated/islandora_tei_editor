@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="js" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="http://localhost/drupal/misc/favicon.ico" type="image/x-icon">
+    <title>TEI Editor | localhost</title>
+    <link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/node.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/defaults.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/system.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/system-menus.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/user.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/jquery-ui-1.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/tei.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/teieditor.css">
+<link type="text/css" rel="stylesheet" media="all" href="ilives:118248_files/style.css">
+<link type="text/css" rel="stylesheet" media="print" href="ilives:118248_files/print.css">
+    <script type="text/javascript" src="ilives:118248_files/jquery.js"></script>
+<script type="text/javascript" src="ilives:118248_files/drupal.js"></script>
+<script type="text/javascript" src="ilives:118248_files/jquery-1.js"></script>
+<script type="text/javascript" src="ilives:118248_files/jquery-ui-1.js"></script>
+<script type="text/javascript" src="ilives:118248_files/tei.js"></script>
+<script type="text/javascript" src="ilives:118248_files/teieditor.js"></script>
+<script type="text/javascript" src="ilives:118248_files/jquery_002.js"></script>
+<script type="text/javascript" src="ilives:118248_files/ajax.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/drupal/" });
+//--><!]]>
+</script>
+    <!--[if lt IE 7]>
+      <link type="text/css" rel="stylesheet" media="all" href="/drupal/themes/garland/fix-ie.css" />    <![endif]-->
+  </head><body class="sidebar-left">
+
+<!-- Layout -->
+  <div id="header-region" class="clear-block"></div>
+
+    <div id="wrapper">
+    <div id="container" class="clear-block">
+
+      <div id="header">
+        <div id="logo-floater">
+        <h1><a href="http://localhost/drupal/" title="localhost"><img src="ilives:118248_files/logo.png" alt="localhost" id="logo"><span>localhost</span></a></h1>        </div>
+
+                                                    
+      </div> <!-- /header -->
+
+              <div id="sidebar-left" class="sidebar">
+                    <div id="block-user-1" class="clear-block block block-user">
+
+  <h2>nbanks</h2>
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a href="http://localhost/drupal/fedora/repository">Digital Repository</a></li>
+<li class="leaf"><a href="http://localhost/drupal/user/1">My account</a></li>
+<li class="collapsed"><a href="http://localhost/drupal/node/add">Create content</a></li>
+<li class="collapsed"><a href="http://localhost/drupal/admin">Administer</a></li>
+<li class="leaf last"><a href="http://localhost/drupal/logout">Log out</a></li>
+</ul></div>
+</div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <div class="breadcrumb"><a href="http://localhost/drupal/">Home</a></div>                              <h2>TEI Editor</h2>                                                  <div class="clear-block">
+            <div id="teieditor-module" class="ui-corner-all">
+		 		<div id="toolbar">
+					<button id="buttonPrevious" title="Previous Page" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowthick-1-w"></span></button>
+					<button id="buttonNext" title="Next Page" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowthick-1-e"></span></button>
+					<select id="pageSelection" title="Select a Page" class="ui-state-default ui-corner-all"></select>
+				</div>
+				<div id="viewer">
+					<div style="height: 800px;" id="map"></div>
+					<div style="height: 800px;" id="tei-editor"><div id="tei-toolbar"><div style="display: none;" id="tei-toolbar-menu" class="ui-widget ui-widget-content ui-corner-all ui-selectable"><div class="ui-widget-header"><br></div></div><button id="button-tei-source-view" title="View Page Source" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span></button><button disabled="disabled" id="button-tei-insert" title="Insert Element" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-plus"></span></button><button disabled="disabled" id="button-tei-remove" title="Remove Element" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-close"></span></button><button disabled="disabled" id="button-tei-edit" title="Edit Element Attributes" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-pencil"></span></button><button disabled="disabled" id="button-tei-save" title="Save Changes" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-folder-open"></span></button></div><span style="height: 767px;" id="tei-content"></span><div style="display: none;" id="tei-tool-tip" class="ui-widget ui-widget-content ui-corner-all"><div class="ui-widget-header"><br></div><dl></dl></div><div style="display: none;" id="tei-context-menu" class="ui-widget ui-widget-content ui-corner-all ui-selectable"><div class="ui-widget-header"><br></div></div></div>
+                        	</div>
+		 	</div>          </div>
+                    <div id="footer"><div id="block-system-0" class="clear-block block block-system">
+
+
+  <div class="content"><a href="http://drupal.org/"><img src="ilives:118248_files/powered-blue-80x15.png" alt="Powered by Drupal, an open source content management system" title="Powered by Drupal, an open source content management system" height="15" width="80"></a></div>
+</div>
+</div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+      
+    </div> <!-- /container -->
+  </div>
+<!-- /layout -->
+
+    </body></html>

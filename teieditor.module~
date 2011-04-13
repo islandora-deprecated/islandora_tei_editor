@@ -1,0 +1,243 @@
+<?php
+/*
+ * @file teieditor.module
+ *
+ * Entry point of the module. All hook functions,
+ * are defined within this file, with the exceptions
+ * of hooks that are related to the modules install,
+ * and hooks that are related to the modules settings.
+ */
+
+/* Function: 
+ *  RenderModule
+ *
+ * Params:
+ *  p_aForm_State - Contains information about the form.
+ *  p_sPid - The pid for the tei page we are to edit.
+ *
+ * Description:
+ *  Displays the module.
+ */
+function RenderModule($p_sPid=NULL, $p_sAction=NULL)
+{
+  require_once('utils.php'); // Only include if we are to render.
+  if(true)//isValidPid($p_sPid))
+    {            
+      switch($p_sAction) // Default render Page
+	{
+	  // Returns a string containing a tei-document
+	case 'getTEI':
+	  {
+	    echo drupal_to_js(GetFedoraObjectDatastream($p_sPid, 'TEI'));
+	    exit;
+	  }
+	  break;
+	  // Save Changes made to the page.
+	case 'save':
+	  {	    
+	    
+	    $TEI = $_POST['TEI'];
+	    drupal_to_js(var_dump($TEI));
+	    exit;
+	    // Validation Code
+	    if(!$TEI->relaxNGValidate(drupal_get_path('module', 'teieditor')."/")) // May have to recast into a xml document.
+	      {
+		drupal_to_js(array('msg'=>"The TEI document is not valid."));
+		exit;
+	      }
+
+	    // Save to fedora
+	    module_load_include('php', 'Fedora_Repository', 'api/fedora_item');
+	    $object = new Fedora_Item($p_sPid);     
+	    $datastreams = $object->get_datastreams_list_as_array();      
+	    $bResult = FALSE;
+	    
+	    drupal_to_js(array('msg'=>"Saving is currently disabled."));
+	    
+	    if($datastreams['TEI'])
+	      {	
+		try
+		  {
+		    // Gather Information about datastream, so we don't overwrite it 
+		    // with nil.
+		    $dataStream = $object->soap_call('getDatastream', 
+						     array("pid" => $p_sPid,
+							   "dsID" => 'TEI',
+							   "asOfDateTime" => NULL
+							   )
+						     );
+		    $dataStream = $dataStream->datastream; // Cleaner Looking
+		    // Overwrite the datastream but maintain metadata.	
+		    $bResult = $object->soap_call('modifyDatastreamByValue', 
+						  array("pid" => $p_sPid,
+							"dsID" => 'TEI',
+							"altIDs" => new SoapVar($dataStream->altIDs->item, SOAP_ENC_ARRAY, 'ArrayOfString'),
+							"dsLabel" => $dataStream->label,
+							"MIMEType" => $dataStream->MIMEType,
+							"formatURI" => $dataStream->formatURI,
+							"dsContent" => $TEI,
+							"checksumType" => $dataStream->checksumType,
+							"checksum" => $dataStream->checksum,
+							"logMessage" => "Overwrote Content of Datastream.",
+							"force" => FALSE,
+							)
+						  );	
+		  }
+		catch(exception $e)
+		  {
+		    // Report Problem.
+		    drupal_to_js(array('msg'=>"Your changes to not be saved. \n".$e->getMessage()));
+		    exit;
+		  }
+		/* Notification of Edits are disabled for now.
+		$bSendEmail = db_result(db_query("SELECT use_email FROM {teieditor}"));
+		if($bSendEmail)
+		  {
+		    global $user;
+		    $sEmail = db_result(db_query("SELECT email FROM {teieditor}"));
+		    $aParams['datastream']= self::ITEM_ID_TEI_PAGE;
+		    $aParams['object']= $this->sPagePid;	    
+		    $aParams['user']= $user->name;
+		    $aParams['modifiedTEI']= $p_sModifiedTEI;	    
+		    drupal_mail('teieditor', '', $sEmail, user_preferred_language($user), $aParams);
+		    }*/
+	      }	    
+	    echo drupal_to_js(array('msg'=>"Save successful."));
+	    exit;
+	  }
+	  break;
+	  // Render the page
+	default:
+	  {
+	    drupal_add_js(drupal_get_path('module', 'teieditor').'/jquery/js/jquery-1.3.2.min.js');
+	    drupal_add_css(drupal_get_path('module', 'teieditor').'/jquery/css/smoothness/jquery-ui-1.7.2.custom.css');
+	    drupal_add_js(drupal_get_path('module', 'teieditor').'/jquery/js/jquery-ui-1.7.2.custom.min.js');
+	    drupal_add_css(drupal_get_path('module', 'teieditor').'/tei.css');
+	    drupal_add_js(drupal_get_path('module', 'teieditor').'/tei.js');
+	    drupal_add_css(drupal_get_path('module', 'teieditor').'/teieditor.css');
+	    drupal_add_js(drupal_get_path('module', 'teieditor').'/teieditor.js');
+	    // Either we have a valid page pid or we take the first page pid of our valid book pid.
+	    $options = getPidList($p_sPid);
+	    $startPid =  (isValidPagePid($p_sPid))? $p_sPid : $options[1]['pid'];
+	    $selections = "";
+	    for($i = 1; $i <= sizeof($options); ++$i)
+	      {
+		$pid = $options[$i]['pid'];
+		$title = $options[$i]['title'];
+		$selected = ($pid==$startPid) ? ' selected="selected"' : '' ;
+		$selections = $selections . '<option value="'.$pid.'"'.$selected.'>'.$title.'</option>';
+	      }	    
+	    $editor = t('<div id="teieditor-module" class="ui-corner-all">
+		 		<div id="toolbar">
+					<button id="buttonPrevious" title="Previous Page" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowthick-1-w"/></button>
+					<button id="buttonNext" title="Next Page" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowthick-1-e"/></button>
+					<select id="pageSelection" title="Select a Page" class="ui-state-default ui-corner-all">'.$selections.'</select>
+				</div>
+				<div id="viewer">
+					<div id="map">
+					<iframe name="map" frameborder="0" width="100%" height="100%" src="http://137.149.66.2:8080/teieditor/teieditor_iframe.html?&pagePid='.$pid.'">Sorry Your browser does not support iframes.</iframe>
+					</div>
+					<div id="tei-editor"></div>
+                        	</div>
+		 	</div>');
+	    return $editor;
+	  }
+	}
+    }
+  else // Print error screen.
+    {
+      return t('Sorry the pid specified is not valid.');
+    }
+}
+
+/* Function: 
+ *  teieditor_menu
+ *
+ * Params: <none>
+ *
+ * Returns:
+ *  An array that defines all the menu items associated with this module.
+ *  Currently defines the settings menu, and a menu where the module can be accessed.
+ */
+function teieditor_menu() 
+{ 
+  /*
+  // Settings
+  $items['admin/settings/teieditor'] = array(
+					   'title' => 'TEI Editor settings',
+					   'description' => 'Settings for the TEI Editor Module.',	
+				   'page callback' => 'drupal_get_form',
+					   'page arguments' => array('teieditor_admin_settings'),
+					   'access arguments' => array('administer site configuration'),
+					   'type' => MENU_NORMAL_ITEM,
+					   'file' => 'teieditor.admin.inc',
+					   );*/
+  // Module
+  $items['teieditor'] = array(
+			      'title' => 'TEI Editor',
+			      'description' => 'TEI Editor',
+			      'page callback' => 'RenderModule',
+			      //'page arguments' => array('RenderModule',1),
+			      'access arguments' => array('access teieditor'),
+			      'type' => MENU_CALLBACK
+			      );
+  return $items;
+}
+
+/* Function: 
+ *  teieditor_theme
+ *
+ * Params: <none>
+ *
+ * Returns:
+ *
+
+function teieditor_theme() 
+{ 
+   return array('RenderModule'=> array('arguments'=>array()));
+}
+
+/* Function: 
+ *  theme_teieditor_form
+ *
+ * Params: <none>
+ *
+ * Returns:
+ *
+/
+function theme_RenderModule($form) 
+{ 
+  $output = drupal_render($form);
+  return $output;
+}
+
+
+/* Function: 
+ *  teieditor_perm
+ *
+ * Params: <none>
+ *
+ * Returns:
+ *  An array that defines all the permissions that relate to this module.
+ */
+function teieditor_perm() 
+{
+  return array('access teieditor');
+}
+
+/* Function: 
+ *  teieditor_mail
+ *
+ * Params: 
+ *  p_sKey - ?
+ *  p_aMessage - Referenced parameter, set to email message.
+ *  p_aParams - User defined variables, data to be used in the message.
+ *
+ * Description:
+ *  Notifies the admin that someone has edited an object within fedora.
+ *
+function teieditor_mail($p_sKey, &$p_aMessage, $p_aParams)
+{
+  $p_aMessage['subject'] = t('Notification: Datastream '.$p_aParams['datastream'].' in object '.$p_aParams['object'].' has been modified.');
+  $p_aMessage['body'] = t('Datastream '.$p_aParams['datastream'].' in object '.$p_aParams['object'].' has been modified by user '.$p_aParams['user'].".\n-------See new datastream below -------\n".$p_aParams['modifiedTEI']);
+  }*/
